@@ -26,7 +26,9 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 /**
  * An abbreviated/simplified DataSource impl that takes a URL from the client
@@ -41,7 +43,6 @@ class UrlBasedDriverDataSource implements javax.sql.DataSource
 
 	/**
 	 * @param properties The properties to use for operations on the driver
-	 * @param embedded Whether to wrap an embedded or a client driver
 	 */
 	public UrlBasedDriverDataSource(Properties properties)
 	{
@@ -50,7 +51,12 @@ class UrlBasedDriverDataSource implements javax.sql.DataSource
 		this.url = properties.getProperty(JDBC_URL);
 	}
 
-	public Connection getConnection() throws java.sql.SQLException
+    @Override
+    public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+        throw new SQLFeatureNotSupportedException();
+    }
+
+    public Connection getConnection() throws java.sql.SQLException
 	{
 		return driver.connect(url, properties);
 	}
