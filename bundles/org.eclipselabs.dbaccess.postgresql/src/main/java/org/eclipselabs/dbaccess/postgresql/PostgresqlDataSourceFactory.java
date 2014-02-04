@@ -71,10 +71,10 @@ public class PostgresqlDataSourceFactory extends AbstractDataSourceFactory
 		if (props == null)
 			props = new Properties();
 
-		if (props.get(PostgresqlDataSourceFactory.JDBC_URL) != null)
-			return new UrlBasedDriverDataSource(props);
-
-		DataSource dataSource = new PGSimpleDataSource();
+        PGSimpleDataSource dataSource = new PGSimpleDataSource();
+        if (props.get(PostgresqlDataSourceFactory.JDBC_URL) != null) {
+            dataSource.setUrl(props.get(PostgresqlDataSourceFactory.JDBC_URL).toString());
+        }
 		setDataSourceProperties(dataSource, props);
 		return dataSource;
 	}

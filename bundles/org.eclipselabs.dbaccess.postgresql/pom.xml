@@ -17,7 +17,10 @@
                 <configuration>
                     <instructions>
                         <Public-Package>org.eclipselabs.dbaccess.postgresql.*</Public-Package>
-                        <Activator>org.eclipselabs.dbaccess.postgresql.Activator</Activator>
+                        <Bundle-Activator>org.eclipselabs.dbaccess.postgresql.Activator</Bundle-Activator>
+                        <Embed-Dependency>postgresql;scope=compile;inline=true</Embed-Dependency>
+                        <Embed-Transitive>true</Embed-Transitive>
+                        <_exportcontents>org.postgresql.*</_exportcontents>
                     </instructions>
                 </configuration>
             </plugin>
