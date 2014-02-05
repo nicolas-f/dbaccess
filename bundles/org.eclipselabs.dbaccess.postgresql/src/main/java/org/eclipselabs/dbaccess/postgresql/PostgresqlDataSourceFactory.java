@@ -29,6 +29,7 @@ import javax.sql.XADataSource;
 
 import org.postgresql.ds.PGConnectionPoolDataSource;
 import org.postgresql.ds.PGSimpleDataSource;
+import org.postgresql.jdbc3.Jdbc3PoolingDataSource;
 import org.postgresql.xa.PGXADataSource;
 
 /**
@@ -71,7 +72,7 @@ public class PostgresqlDataSourceFactory extends AbstractDataSourceFactory
 		if (props == null)
 			props = new Properties();
 
-        DataSource dataSource = new PGSimpleDataSource();
+        DataSource dataSource = new Jdbc3PoolingDataSource();
         if (props.get(PostgresqlDataSourceFactory.JDBC_URL) != null) {
             dataSource = new UrlBasedDriverDataSource(props);
         }

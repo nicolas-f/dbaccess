@@ -1,5 +1,11 @@
 package org.eclipselabs.dbaccess.postgresql;
 
+import org.postgis.PGbox2d;
+import org.postgis.PGbox3d;
+import org.postgis.PGgeometry;
+import org.postgis.jts.JtsGeometry;
+import org.postgresql.PGConnection;
+
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -32,10 +38,11 @@ public class DataSourceWrapper implements DataSource {
         return configureConnection(pgDataSource.getConnection());
     }
 
-    private Connection configureConnection(Connection connection) {
-        if(connection instanceof org.postgresql.Connection) {
-            ((org.postgresql.Connection) connection).addDataType("geometry", "org.postgis.PGgeometry");
-            ((org.postgresql.Connection) connection).addDataType("box3d", "org.postgis.PGbox3d");
+    private Connection configureConnection(Connection connection) throws SQLException {
+        if(connection instanceof PGConnection) {
+            ((org.postgresql.PGConnection) connection).addDataType("geometry", JtsGeometry.class);
+            ((org.postgresql.PGConnection) connection).addDataType("box3d", PGbox3d.class);
+            ((org.postgresql.PGConnection) connection).addDataType("box2d", PGbox2d.class);
         }
         return connection;
     }
@@ -67,11 +74,11 @@ public class DataSourceWrapper implements DataSource {
 
     @Override
     public <T> T unwrap(Class<T> iface) throws SQLException {
-        return pgDataSource.unwrap(iface);
+        throw new SQLException("Unsupported operation");
     }
 
     @Override
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
-        return pgDataSource.isWrapperFor(iface);
+        return false;
     }
 }
