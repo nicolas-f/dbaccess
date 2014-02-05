@@ -18,9 +18,9 @@
                     <instructions>
                         <Public-Package>org.eclipselabs.dbaccess.postgresql.*</Public-Package>
                         <Bundle-Activator>org.eclipselabs.dbaccess.postgresql.Activator</Bundle-Activator>
-                        <Embed-Dependency>postgresql;scope=compile;inline=true</Embed-Dependency>
+                        <Embed-Dependency>postgresql;postgis-jdbc;postgis-stubs;scope=compile;inline=true</Embed-Dependency>
                         <Embed-Transitive>true</Embed-Transitive>
-                        <_exportcontents>org.postgresql.*</_exportcontents>
+                        <_exportcontents>org.postgresql.*;org.postgis.*</_exportcontents>
                     </instructions>
                 </configuration>
             </plugin>
@@ -49,9 +49,19 @@
             <version>4.3.1</version>
         </dependency>
         <dependency>
-            <groupId>org.postgresql</groupId>
+            <groupId>org.postgis</groupId>
+            <artifactId>postgis-jdbc</artifactId>
+            <version>1.3.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgis</groupId>
+            <artifactId>postgis-stubs</artifactId>
+            <version>1.3.3</version>
+        </dependency>
+        <dependency>
+            <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>9.3-1100-jdbc41</version>
+            <version>8.3-603.jdbc4</version>
         </dependency>
     </dependencies>
 </project>
