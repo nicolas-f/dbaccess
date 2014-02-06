@@ -44,7 +44,7 @@ public class DataSourceWrapper implements DataSource {
             ((org.postgresql.PGConnection) connection).addDataType("box3d", PGbox3d.class);
             ((org.postgresql.PGConnection) connection).addDataType("box2d", PGbox2d.class);
         }
-        return connection;
+        return new ConnectionWrapper(connection);
     }
 
     @Override
